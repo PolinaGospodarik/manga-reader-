@@ -1,7 +1,6 @@
-// src/components/Login.tsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../slice/users'; // Убедитесь, что путь к файлу правильный
+import { login } from '../../slice/users';
 import { RootState, AppDispatch } from '../../store/store';
 
 const Login: React.FC = () => {
