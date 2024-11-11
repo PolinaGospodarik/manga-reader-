@@ -1,0 +1,18 @@
+.custom-next, .custom-prev {
+    position: relative;
+    /*top: 100%;       !* Центрирование по вертикали *!*/
+    /*transform: translateY(-100%);*/
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    color: #000000;
+    z-index: 3;
+    cursor: pointer;
+}
+.custom-next {
+    /*right: 15px;   !* Позиция кнопки "вперед" справа *!*/
+}
+
+.custom-prev {
+    margin-right: 40px;    /* Позиция кнопки "назад" слева */
+}

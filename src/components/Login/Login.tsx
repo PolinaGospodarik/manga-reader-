@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../slice/users';
-import { RootState, AppDispatch } from '../../store/store';
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {login} from '../../redux/slice/users';
 
-const Login: React.FC = () => {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch<AppDispatch>();
-    const { loading, error } = useSelector((state: RootState) => state.users);
+    const dispatch = useAppDispatch();
+    const { loading, error } = useAppSelector((state) => state.users);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

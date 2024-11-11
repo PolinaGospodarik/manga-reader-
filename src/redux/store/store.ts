@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import usersReducer from "../slice/users"
+import mangaReducer from "../slice/manga"
 
 const rootReducer ={
-    users: usersReducer
+    users: usersReducer,
+    manga: mangaReducer
 }
 
 const store = configureStore({

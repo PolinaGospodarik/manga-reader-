@@ -1,0 +1,13 @@
+.tag-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag{
+    margin-right: 5px;
+    border-radius: 7px;
+    padding: 1px 7px;
+    color: white;
+    font-size:14px;
+    margin-bottom: 5px;
+}
