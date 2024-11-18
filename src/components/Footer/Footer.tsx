@@ -1,6 +1,7 @@
 import React from 'react';
+import "./Footer.css"
 
-const Slider = () => {
+const Footer = () => {
     return (
         <>
 
@@ -8,4 +9,4 @@ const Slider = () => {
     );
 };
 
-export default Slider;
+export default Footer;

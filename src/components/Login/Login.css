@@ -1,0 +1,9 @@
+.form__login{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+.form__password{
+    display: flex;
+    flex-direction: column;
+}

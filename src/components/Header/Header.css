@@ -1,16 +1,35 @@
 .header{
-    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;
     z-index: 2;
     width: 100%;
-    background-color: rgba(105, 105, 105, 0.27);
-    padding: 10px;
+    padding: 10px 0;
+
 }
+
+.header.scrolled {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid orangered;
+}
+
 .header-wrapper{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
+
+.header-left{
+    display: flex;
+    align-items: center;
+}
+
+.logo-wordmark{
+    text-align: center;
+}
+
 .header-right{
     max-width: 900px;
     display: flex;
@@ -29,14 +48,56 @@
     align-items: center;
 }
 .search{
+    position: relative;
+    background-color: rgba(231, 230, 230, 0.75);
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 5px 30px 5px 10px;
+
 }
 .search-button{
     position: absolute;
+    background-color: transparent;
     width: 20px;
     height: 20px;
-    background-color:gray;
-    border-radius: 50%;
     right: 4px;
+}
+
+.search-field{
+    position: absolute;
+    top: 100%;
+    background-color: white;
+}
+
+.search-field__item{
+    border-bottom: 1px solid black;
+}
+
+.header-right__button-theme{
+    background-color: transparent;
+}
+
+.button-theme__icon{
+    font-size: 18px;
+}
+
+.header-right__avatar {
+    border-radius: 40px;
+    overflow: hidden;
+    width:40px;
+    height:40px;
+}
+.avatar{
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+
+.manga-slider__title{
+    margin: 10px 0;
+}
+
+.manga-slider__title h2{
+    font-family: "League Spartan", sans-serif; ;
+    font-size: 28px;
+    font-weight: 500;
 }

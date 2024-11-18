@@ -1,0 +1,116 @@
+/* Общие стили для контейнера изображения */
+
+.swiper-slide{
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    z-index: 9;
+}
+.slide-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.slide__img {
+    position: relative;
+    display: block;
+    width: 240px;
+    height: 340px;
+    overflow: hidden;
+}
+
+.slide__img::after{
+    opacity: 0;
+    visibility: hidden;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.82);
+    z-index: 1;
+}
+
+.text__description {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 90;
+    color: #ffffff;
+    width: 100%;
+    height: 70%;
+    padding: 10px;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+}
+
+
+.swiper-slide:hover .slide__img::after{
+    opacity: 1;
+    visibility: visible;
+}
+
+.swiper-slide:hover .text__description
+{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s 0s;
+}
+.swiper-slide:hover .slide-read{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+.slide-read{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background-color: orangered;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 20px;
+    bottom: 10px;
+    right: 20px;
+    z-index: 90;
+}
+
+.slide__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/*.slide__img-small {*/
+/*    display: block;*/
+/*    width: 170px;*/
+/*    height: 240px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.slide__img-small img {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover;*/
+/*}*/
+
+.text__title {
+
+}
+
+.text__title h3 {
+    font-size: 14px;
+    font-weight: 500;
+}
+.text__description h3{
+    font-size: 12px;
+    font-weight:400;
+}

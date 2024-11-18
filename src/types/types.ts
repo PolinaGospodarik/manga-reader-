@@ -1,4 +1,5 @@
 export type AuthResponse = {
+    user: boolean
     access_token: string;
     refresh_token: string;
 }
@@ -6,6 +7,7 @@ export type AuthResponse = {
 export type UsersState = {
     // access_token: string | null;
     // refresh_token: string | null;
+    user: boolean;
     loading: boolean;
     error: string | null;
     permissions: string[];
@@ -14,7 +16,9 @@ export type UsersState = {
 
 //initialState MANGALIST
 export type MangaState = {
-    mangaList: Manga[];
+    mangaPopular: Manga[];
+    mangaLatest: Manga[];
+    mangaItem: MangaApiResponse | null;
     loading: boolean;
     error: string | null;
 };
@@ -33,6 +37,7 @@ export type MangaAttributes = {
         en: string;
     };
     tags: Tag[];
+    [key: string]: any;
 };
 
 export type Tag = {
@@ -59,14 +64,72 @@ export type Relationship = {
 }
 
 export type RelationshipAttributes = {
-	// description: string;
-	// volume?: any;
     name: string;
 	fileName?: string | undefined;
-	// locale: string;
-	// createdAt: string;
-	// updatedAt: string;
-	// version: number;
+    [key: string]: any;
 }
 
 
+
+// Пример типов
+
+export type MangaDetails ={
+    id: string;
+    attributes: MangaAttributes & { contentRating?: string };
+    relationships: Relationship[];
+}
+
+export type ListState ={
+    mangaSelfPublished: {
+        [listId: string]: {
+            mangaData: MangaDetails[];
+            listName: string;
+        };
+    };
+    loading: boolean;
+    error: string | null;
+}
+
+//MangaId
+export type MangaApiResponse = {
+    result: string;
+    response: string;
+    data: Manga;
+    statistics: MangaStatisticsResponse;
+    rating?: {
+        average: number;
+        bayesian: number;
+    };
+    follows?: number;
+};
+
+
+
+export type MangaStatisticsResponse = {
+    statistics: {
+        [key: string]: {
+            rating: MangaRating;
+            follows: number;
+        };
+    };
+}
+
+export type MangaRating = {
+    average: number;
+    bayesian: number;
+}
+
+//Search
+export type SearchState = {
+    searchResults: Manga[];
+    searchValue: string;
+    loading: boolean;
+    error: string | null;
+};
+
+
+export type MangaSearch ={
+    data: Manga[];
+    result: string;
+
+}

@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import "./Login.css"
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {login} from '../../redux/slice/users';
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
     const dispatch = useAppDispatch();
-    const { loading, error } = useAppSelector((state) => state.users);
+    const navigate = useNavigate();
+
+    const { loading, error, user } = useAppSelector((state) => state.users);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(login({ username, password }));
     };
 
+    useEffect(() => {
+        if(user){
+            navigate("/")
+        }
+    }, [user, navigate]);
+
     return (
-        <div>
-            <h2>Login</h2>
+        <div className="form">
+            <h2>Sign in to your account</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
+                <div className="form__login">
+                    <label>Username or email</label>
                     <input
                         type="text"
                         value={username}
@@ -26,8 +37,8 @@ const Login = () => {
                         required
                     />
                 </div>
-                <div>
-                    <label>Password:</label>
+                <div className="form__password">
+                    <label>Password</label>
                     <input
                         type="password"
                         value={password}
@@ -35,11 +46,9 @@ const Login = () => {
                         required
                     />
                 </div>
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Logging in...' : 'Login'}
-                </button>
+                <button type="submit" disabled={loading}>Sign in</button>
             </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {/*{error && <p style={{ color: 'red' }}>{error}</p>}*/}
         </div>
     );
 };

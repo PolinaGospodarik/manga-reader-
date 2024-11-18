@@ -1,46 +1,71 @@
 import React, {useEffect} from 'react';
+import "./MangaList.css"
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {fetchManga} from "../../redux/slice/manga";
+import {fetchMangaId, fetchMangaLatest, fetchMangaPopular} from "../../redux/slice/manga";
+import {Manga, Relationship} from "../../types/types";
+import {useNavigate, useParams} from "react-router-dom";
 
 const MangaList = () => {
+    // const {id}= useParams();
     const dispatch = useAppDispatch();
-    const mangaList = useAppSelector((state) => state.manga.mangaList);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(fetchManga())
-    }, [dispatch]);
+    const mangaLatest = useAppSelector((state) => state.manga.mangaLatest);
+
+    const handleClick = (manga: Manga) => {
+        dispatch(fetchMangaId(manga.id));
+        navigate(`/manga/${manga.id}`);
+    }
 
     return (
         <>
-            {mangaList && mangaList.length > 0 ? (
-                mangaList.map((manga) => {
-                    const cover = manga.relationships?.[2]?.attributes;
-                    const coverUrl = cover?.fileName
-                        ? `https://uploads.mangadex.org/covers/${manga.id}/${cover.fileName}`
-                        : null;
+            <div className="manga-latest">
+                <div className="container">
+                    <div className="manga-latest__title"><h2>Latest Updates</h2></div>
+                    <div className="manga-latest-wrapper">
+                        {mangaLatest && mangaLatest.length > 0 ? (
+                            mangaLatest.map((manga) => {
 
-                    return (
-                        <div key={manga.id}>
-                            <h2>{manga.attributes.title?.en || 'Название недоступно'}</h2>
-                            <span>
-                                {manga.attributes.tags
-                                    .map((tag) => tag.attributes.name.en)
-                                    .join(", ")}
-                            </span>
-                            <p>{manga.attributes.description?.en || 'Описание недоступно'}</p>
-                            {coverUrl ? (
-                                <img src={coverUrl} alt={manga.attributes?.title?.en || 'Cover'}/>
-                            ) : (
-                                <p>Обложка не доступна</p>
-                            )}
-                            <span>{manga.relationships[0].attributes?.name}</span>
-                            <span>{manga.relationships[1].attributes?.name}</span>
-                        </div>
-                    );
-                })
-            ) : (
-                <div>Нет доступной манги</div>
-            )}
+                                const typesToFind = ['cover_art', 'author', 'artist'];
+                                const indexes = typesToFind.map((type) =>
+                                    manga.relationships.findIndex(
+                                        (relationship: Relationship) => relationship.type === type
+                                    )
+                                );
+                                const [coverArtIndex, authorIndex, artistIndex] = indexes;
+
+                                const cover = manga.relationships?.[coverArtIndex]?.attributes;
+                                const fileName = cover?.fileName;
+                                const coverUrl = fileName ? `https://uploads.mangadex.org/covers/${manga.id}/${fileName}.256.jpg` : null;
+
+                                return (
+                                    <div className="manga-latest__item" key={manga.id} onClick={() => handleClick(manga)}>
+                                        <div className="item-left">
+                                            <a className="item-left__img">
+                                                {coverUrl ? (
+                                                    <img src={coverUrl} alt={manga.attributes?.title?.en || 'Cover'}/>
+                                                ) : (
+                                                    <p>Обложка не доступна</p>
+                                                )}
+                                            </a>
+                                        </div>
+                                        <div className="item-right">
+                                            <div className="item__title">
+                                                <h3>{manga.attributes.title?.en || 'Название недоступно'}</h3>
+                                            </div>
+
+                                            <span>{manga.relationships[authorIndex]?.attributes?.name}</span>
+                                            <span>{manga.relationships[artistIndex]?.attributes?.name}</span>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div>Нет доступной манги</div>
+                        )}
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

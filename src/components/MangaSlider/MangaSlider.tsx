@@ -1,108 +1,78 @@
-import React, {useEffect} from 'react';
-import { NavigationButtons } from "../NavigationButtons/NavigationButtons"
-import TagList from "../TagList/TagList";
-import './MangaSlider.css'
+// MangaSlider.tsx
 
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchManga } from "../../redux/slice/manga";
-
+import React, { useEffect } from 'react';
+import './MangaSlider.css';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Navigation } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
+import { fetchMangaSelfPublished } from '../../redux/slice/list';
+import MangaSlide from '../MangaSlide/MangaSlide';
+import {Manga, MangaDetails} from '../../types/types';
 
-import { Relationship} from "../../types/types";
+interface MangaSliderProps {
+    listId: string; // Уникальный id для списка
+    slidesPerView?: number; // Количество слайдов на экране
+}
 
-
-const MangaSlider = () => {
-
+const MangaSlider: React.FC<MangaSliderProps> = ({ listId, slidesPerView= 5}) => {
+    // const isSmall = slidesPerView === 7;
     const dispatch = useAppDispatch();
-    const mangaSlider = useAppSelector((state) => state.manga.mangaList);
+    // Извлекаем данные из состояния Redux
+    const mangaData = useAppSelector(
+        (state) => state.list.mangaSelfPublished[listId]?.mangaData // Используем только mangaData
+    );
+    const listName = useAppSelector(
+        (state) => state.list.mangaSelfPublished[listId]?.listName
+    );
+    const loading = useAppSelector((state) => state.list.loading);
+    const error = useAppSelector((state) => state.list.error);
 
     useEffect(() => {
-        dispatch(fetchManga())
-    }, [dispatch]);
+        if (listId) {
+            dispatch(fetchMangaSelfPublished({ listId, contentRating: ['safe', 'suggestive']}));
+        }
+    }, [dispatch, listId]);
 
     return (
-        <>
-            <div className="manga-slider">
-                <Swiper
-                    spaceBetween={50}
-                    slidesPerView={1}
-                    navigation={{
-                        nextEl: '.custom-next',
-                        prevEl: '.custom-prev',
-                    }}
-                    loop={true}
-                    modules={[Navigation]}
-                    // pagination={{ clickable: true }}
-                >
-                    {mangaSlider && mangaSlider.length > 0 ? (
-                        mangaSlider.map((manga, index) => {
+        <div className="slider">
+            <div className="container">
+                <div className="slider__text">
+                    <h3>{listName || 'Загрузка...'}</h3>
+                </div>
 
-                            const typesToFind = ['cover_art', 'author', 'artist'];
-                            const indexes = typesToFind.map((type) =>
-                                manga.relationships.findIndex(
-                                    (relationship: Relationship) => relationship.type === type
-                                )
-                            );
-
-                            const [coverArtIndex, authorIndex, artistIndex] = indexes;
-
-                            const cover = manga.relationships?.[coverArtIndex]?.attributes;
-                            const fileName = cover?.fileName;
-
-                            const [coverUrl, backgroundUrl ] = fileName
-                                ? [
-                                    `https://uploads.mangadex.org/covers/${manga.id}/${fileName}.256.jpg`,
-                                    `https://uploads.mangadex.org/covers/${manga.id}/${fileName}`
-                                ] : [null, null];
-
-                            return (<SwiperSlide key={manga.id} className="slide"  style={{ backgroundImage: `url(${backgroundUrl})` }}>
-                                    <div className="slide-container">
-                                        <a className="slide-left__img">
-                                            {coverUrl ? (
-                                                <img src={coverUrl} alt={manga.attributes?.title?.en || 'Cover'}/>
-                                            ) : (
-                                                <p>Обложка не доступна</p>
-                                            )}
-                                        </a>
-                                        <div className="slide-right__text">
-                                            <div className="text-top">
-                                                <div className="text-top__title">
-                                                    <h2>{manga.attributes.title?.en || 'Название недоступно'}</h2>
-                                                </div>
-                                                <TagList tags={manga.attributes.tags} />
-                                                <div className="text-top__description">
-                                                    <p>{manga.attributes.description?.en || 'Описание недоступно'}</p>
-                                                </div>
-                                            </div>
-                                            <div className="text-bottom">
-                                                <div className="text-bottom__author">
-                                                    <span>{manga.relationships[authorIndex].attributes?.name}</span>
-                                                    <span>,{manga.relationships[artistIndex].attributes?.name}</span>
-                                                </div>
-                                                <div className="text-bottom__other">
-                                                    <div className="other__numbering">NO.{index + 1}</div>
-                                                    <div className="other__navigation"><NavigationButtons/></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                {loading ? (
+                    <div>Загрузка...</div>
+                ) : error ? (
+                    <div>{`Ошибка: ${error}`}</div>
+                ) : (
+                    <Swiper
+                        spaceBetween={20}
+                        slidesPerView={slidesPerView}
+                        loop={true}
+                        modules={[Pagination]}
+                        pagination={{
+                            clickable: true,
+                            dynamicBullets: true,
+                        }}
+                    >
+                        {mangaData && mangaData.length > 0 ? (
+                            mangaData.map((manga: MangaDetails, index: number) => (
+                                <SwiperSlide key={manga.id}>
+                                    <MangaSlide manga={manga} index={index}/>
                                 </SwiperSlide>
-                            )
-                        })
-                    ) : (
-                        <div>Нет доступной манги</div>
-                    )}
-                </Swiper>
-
+                            ))
+                        ) : (
+                            <div>Нет доступной манги</div>
+                        )}
+                    </Swiper>
+                )}
             </div>
-        </>
+        </div>
     );
 };
-
 
 export default MangaSlider;

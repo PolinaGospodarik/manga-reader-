@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import usersReducer from "../slice/users"
 import mangaReducer from "../slice/manga"
+import listReducer from "../slice/list"
+import searchReducer from "../slice/search"
 
 const rootReducer ={
     users: usersReducer,
-    manga: mangaReducer
+    manga: mangaReducer,
+    list: listReducer,
+    search: searchReducer
 }
 
 const store = configureStore({

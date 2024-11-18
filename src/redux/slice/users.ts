@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {AuthResponse, UsersState} from "../../types/types";
-import {getTokensFromLocalStorage, removeTokensFromLocalStorage, saveTokensToLocalStorage} from "../../utils/authUtils";
+import { removeTokensFromLocalStorage, saveTokensToLocalStorage} from "../../utils/authUtils";
 
 const API_URL = 'https://auth.mangadex.org/realms/mangadex/protocol/openid-connect/token';
 const CLIENT_ID = 'personal-client-c40f284a-f83f-498e-b8b3-09665758f4a9-f429155c';
@@ -91,6 +91,7 @@ const usersSlice = createSlice({
     initialState: {
         // access_token: getTokensFromLocalStorage().accessToken,
         // refresh_token:getTokensFromLocalStorage().refreshToken,
+        user: false,
         loading: false,
         error: null,
         permissions: [] as string[]
@@ -109,11 +110,13 @@ const usersSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, {payload}) => {
                 state.loading = false;
+                state.user = true;
                 // state.access_token =payload.access_token;
                 // state.refresh_token =payload.refresh_token;
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
+                state.user = false;
                 state.error = action.payload || 'Ошибка при выполнении входа';
             })
             .addCase(refreshAccessToken.pending, (state) => {
