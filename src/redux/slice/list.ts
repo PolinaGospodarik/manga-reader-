@@ -13,32 +13,26 @@ export const fetchMangaSelfPublished = createAsyncThunk<
             const listResponse: { data: { data: { attributes: { name: string }; relationships: Relationship[] } } } =
                 await axios.get(`https://api.mangadex.org/list/${listId}`);
 
-            // Извлечение ID манги
             const mangaIds: string[] = listResponse.data.data.relationships
                 .filter((rel: Relationship) => rel.type === "manga")
                 .map((rel: Relationship) => rel.id);
 
-            // Формируем параметры запроса
             const params = {
-                ids: mangaIds, // IDs передаются как массив
-                limit: mangaIds.length, // Ограничение по количеству результатов
-                contentRating, // Фильтр по рейтингу
-                includes: ["cover_art", "content_rating"], // Дополнительные включения
+                ids: mangaIds,
+                contentRating,
+                includes: ["cover_art", "content_rating"],
                 order: {
                     createdAt: "desc",
                     title: "asc",
                 },
-                hasAvailableChapters: true, // Только с доступными главами
+                hasAvailableChapters: true,
             };
 
-            // Выполняем запрос
             const mangaDetailsResponse: { data: { data: MangaDetails[] } } =
                 await axios.get(`https://api.mangadex.org/manga`, { params });
 
-            // Данные манги
             const mangaData = mangaDetailsResponse.data.data;
 
-            // Возвращаем результат
             return {
                 listId,
                 mangaData,

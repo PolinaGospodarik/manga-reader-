@@ -22,7 +22,7 @@ export const fetchMangaByTitle = createAsyncThunk<
                     },
                 }
             );
-            return response.data.data; // Возвращаем найденные манги
+            return response.data.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.message || 'Неизвестная ошибка');
@@ -49,8 +49,8 @@ const searchSlice = createSlice({
             // console.log(payload);
         },
         clearSearch: (state) =>{
-            state.searchValue = "";  // Очищаем строку поиска
-            state.searchResults = [];  // Очищаем результаты поиска
+            state.searchValue = "";
+            state.searchResults = [];
             state.error = null;
         }
     },

@@ -61,30 +61,6 @@ export const refreshAccessToken = createAsyncThunk<AuthResponse, { refresh_token
     }
 );
 
-// export const fetchPermissions = createAsyncThunk<string[], undefined, { rejectValue: string }>(
-//     'users/fetchPermissions',
-//     async (_, {rejectWithValue}) => {
-//         try{
-//             const {accessToken} = getTokensFromLocalStorage();
-//             if (!accessToken){
-//                 return rejectWithValue('Токен не найден');
-//             }
-//             const response = await axios.get("https://api.mangadex.org/auth/check", {
-//                 headers:{
-//                     Authorization: `Bearer ${accessToken}`,
-//                 }
-//             });
-//             console.log(response.data.permissions);
-//             return response.data.permissions;
-//         }catch (error) {
-//             if (axios.isAxiosError(error)) {
-//                 return rejectWithValue(error.response?.data.message || 'Неизвестная ошибка');
-//             }
-//             return rejectWithValue('Неизвестная ошибка');
-//         }
-//     }
-// );
-
 
 const usersSlice = createSlice({
     name: 'users',
@@ -131,18 +107,7 @@ const usersSlice = createSlice({
                 state.loading = false;
                 state.error = payload || 'Ошибка при обновлении токена';
             })
-            // .addCase(fetchPermissions.pending, (state) => {
-            //     state.loading = true;
-            //     state.error = null;
-            // })
-            // .addCase(fetchPermissions.fulfilled, (state, { payload }) => {
-            //     state.loading = false;
-            //     state.permissions = payload; // Заполняем permissions
-            // })
-            // .addCase(fetchPermissions.rejected, (state, { payload }) => {
-            //     state.loading = false;
-            //     state.error = payload || 'Ошибка при получении разрешений';
-            // });
+
     }
 });
 
