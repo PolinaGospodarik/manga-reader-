@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import MangaItem from "./components/MangaItem/MangaItem";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 const AppContent = () => {
     const location = useLocation();
@@ -20,6 +21,7 @@ const AppContent = () => {
                 <Route path="/" element={<HomePage/>} />
                 <Route path="/login" element={<LoginPage/>} />
                 <Route path="/manga/:id" element={<MangaItem/>} />
+                <Route path="/search" element={<SearchPage/>} />
             </Routes>
         </>
     );

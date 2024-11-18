@@ -41,11 +41,11 @@ const MangaPopularSlide = ({manga, index}:{manga: Manga, index: number}) => {
 
     return (
         <>
-            <div className="slide-popular"  style={{ backgroundImage: `url(${backgroundUrl})` }} onClick={handleClick}>
+            <div className="slide-popular"  style={{ backgroundImage: `url(${backgroundUrl})` }} >
                 <div className="container">
                     <div className="popular-title">Popular New Titles</div>
-                    <div className="slide-popular-wrapper">
-                        <a className="slide-popular-left__img">
+                    <div className="slide-popular-wrapper" >
+                        <a className="slide-popular-left__img" onClick={handleClick}>
                             {coverUrl ? (
                                 <img src={coverUrl} alt={manga.attributes?.title?.en || 'Cover'}/>
                             ) : (

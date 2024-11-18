@@ -77,8 +77,7 @@ const listSlice = createSlice({
                     mangaData: payload.mangaData,
                     listName: payload.listName
                 };
-
-                console.log(payload);
+                // console.log(payload);
             })
             .addCase(fetchMangaSelfPublished.rejected, (state, { payload }) => {
                 state.loading = false;

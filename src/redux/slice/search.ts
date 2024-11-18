@@ -46,10 +46,12 @@ const searchSlice = createSlice({
     reducers:{
         setSearchValue: (state, {payload}) =>{
             state.searchValue = payload;
-            console.log(payload);
+            // console.log(payload);
         },
         clearSearch: (state) =>{
-            state.searchResults = [];
+            state.searchValue = "";  // Очищаем строку поиска
+            state.searchResults = [];  // Очищаем результаты поиска
+            state.error = null;
         }
     },
     extraReducers:  (builder) =>{

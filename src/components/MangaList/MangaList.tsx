@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import "./MangaList.css"
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {fetchMangaId, fetchMangaLatest, fetchMangaPopular} from "../../redux/slice/manga";
+import {fetchMangaId, fetchMangaLatest} from "../../redux/slice/manga";
 import {Manga, Relationship} from "../../types/types";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const MangaList = () => {
     // const {id}= useParams();
@@ -11,6 +11,10 @@ const MangaList = () => {
     const navigate = useNavigate();
 
     const mangaLatest = useAppSelector((state) => state.manga.mangaLatest);
+
+    useEffect(() => {
+        dispatch(fetchMangaLatest())
+    }, [dispatch]);
 
     const handleClick = (manga: Manga) => {
         dispatch(fetchMangaId(manga.id));

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
 import {Manga, MangaApiResponse, MangaState, MangaStatisticsResponse} from "../../types/types";
 
@@ -110,7 +110,7 @@ const mangaSlice = createSlice({
             .addCase(fetchMangaPopular.fulfilled, (state, {payload})=>{
                 state.loading = false;
                 state.mangaPopular =payload
-                // console.log(payload)
+
             })
             .addCase(fetchMangaPopular.rejected, (state, {payload})=>{
                 state.loading = false;
