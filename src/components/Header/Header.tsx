@@ -5,7 +5,7 @@ import { faDroplet } from '@fortawesome/free-solid-svg-icons';
 import logoImg from "../../img/mangadex-logo.svg";
 import logoText from "../../img/mangadex-wordmark-black.svg";
 import { useNavigate } from "react-router-dom";
-import Search from "../SearchInput/SearchInput";
+import SearchInput from "../SearchInput/SearchInput";
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -28,7 +28,7 @@ const Header = () => {
                         <img src={logoText} alt="" className="logo-wordmark" />
                     </div>
                     <div className="header-right">
-                        <Search />
+                        <SearchInput showDropdown={true} inputSize="small"/>
                         <button className="header-right__button-theme">
                             <FontAwesomeIcon className="button-theme__icon" icon={faDroplet} />
                         </button>

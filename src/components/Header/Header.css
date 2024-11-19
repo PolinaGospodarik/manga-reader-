@@ -42,80 +42,11 @@
     margin-right: 15px;
 }
 
-.search{
-    position: relative;
-    width: 400px;
-    background-color: rgba(231, 230, 230, 0.75);
-    border-radius: 15px;
-    padding: 5px 30px 5px 10px;
-    transition: all 0.3s ease;
-}
-
-.search--focused {
-    width: 600px; /* Увеличенная ширина */
-    font-size: 16px; /* Увеличенный шрифт */
-}
 
 .header-right__search{
     position: relative;
     display: flex;
     align-items: center;
-}
-
-.search-button{
-    position: absolute;
-    background-color: transparent;
-    width: 20px;
-    height: 20px;
-    right: 4px;
-}
-.search-field {
-    position: absolute;
-    top: 100%; /* Список будет под инпутом */
-    left: 0;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    max-height: 300px; /* Максимальная высота */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    z-index: 10;
-    margin-top: 5px;
-}
-
-.search-field__item {
-    padding: 10px 10px 5px;
-    cursor: pointer;
-}
-
-.search-field__item-wrapper{
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    background-color: #e1e1e1;
-    border-radius: 8px;
-}
-
-.search-field__item-wrapper:hover {
-    background-color: #f0f0f0;
-}
-
-.search-field__item-img{
-    display: block;
-    width: 70px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 4px;
-    margin-right: 15px;
-}
-.search-field__item-img img {
-    width: 100%;
-    height: 100%;
-}
-
-.search-field__item-title{
-    font-size: 18px;
-    font-weight: 500;
 }
 
 .header-right__button-theme{
@@ -139,15 +70,7 @@
     object-fit: contain;
 }
 
-.manga-slider__title{
-    margin: 10px 0;
-}
 
-.manga-slider__title h2{
-    font-family: "League Spartan", sans-serif; ;
-    font-size: 28px;
-    font-weight: 500;
-}
 
 
 

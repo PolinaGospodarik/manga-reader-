@@ -1,0 +1,27 @@
+.search-page{
+    padding-top: 70px;
+}
+
+.search-page__item{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.search-page__img{
+    display: block;
+    width: 100px;
+    height:350px;
+    overflow: hidden;
+}
+
+.search-page__img{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.search-page__title{
+    display: flex;
+    flex: 1;
+}
