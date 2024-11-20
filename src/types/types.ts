@@ -153,3 +153,10 @@ export type TContext =[
     string,
     (value: string) => void
 ]
+
+//favorites
+export type Favorite ={
+    favorites: [],
+    loading: boolean,
+    error: null,
+}
