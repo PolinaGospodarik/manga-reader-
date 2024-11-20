@@ -1,0 +1,36 @@
+.dropdown-content {
+    position: absolute;
+    top: 55px;
+    right: 15px;
+    width: 150px;
+    height: 100px;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+}
+
+
+.dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.dropdown-theme{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.dropdown-button {
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.dropdown-button:hover {
+    color: #007bff;
+}

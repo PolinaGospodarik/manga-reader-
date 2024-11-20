@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import './MangaPopularSlider.css'
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchMangaPopular } from "../../redux/slice/manga";
@@ -27,13 +26,10 @@ const MangaPopularSlider = () => {
         <>
             <div className="manga-slider">
                 {loading ? (
-                    // Отображение во время загрузки
                     <div className="loading">Загрузка манги...</div>
                 ) : error ? (
-                    // Отображение ошибки
                     <div className="error">{error}</div>
                 ) : mangaPopular && mangaPopular.length > 0 ? (
-                    // Отображение слайдера
                     <Swiper
                         spaceBetween={0}
                         slidesPerView={1}
@@ -51,7 +47,6 @@ const MangaPopularSlider = () => {
                         ))}
                     </Swiper>
                 ) : (
-                    // Если список манги пуст
                     <div>Нет доступной манги</div>
                 )}
             </div>

@@ -17,7 +17,7 @@ export const NavigationButtons = () => {
 
     return (
         <>
-            <button className="custom-prev " onClick={handlePrev}>
+            <button className="custom-prev" onClick={handlePrev}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </button>
             <button className="custom-next" onClick={handleNext}>

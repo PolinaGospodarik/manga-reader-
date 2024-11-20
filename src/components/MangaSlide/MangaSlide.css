@@ -1,9 +1,6 @@
-/* Общие стили для контейнера изображения */
-
 .swiper-slide{
     position: relative;
     overflow: hidden;
-    border-radius: 4px;
     z-index: 9;
 }
 .slide-wrapper {

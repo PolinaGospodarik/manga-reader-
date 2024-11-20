@@ -1,14 +1,16 @@
-    import React from 'react';
+    import React, {useContext} from 'react';
     import "./MangaSlide.css"
     import {Manga, Relationship} from "../../types/types";
     import {useAppDispatch} from "../../hooks";
     import {fetchMangaId} from "../../redux/slice/manga";
     import {useNavigate} from "react-router-dom";
+    import {themeContext} from "../../roviders/ThemeContext";
 
     const MangaSlide = ({manga, index}:{manga: Manga, index: number}) => {
 
         const dispatch = useAppDispatch();
         const navigate = useNavigate();
+        const [color] = useContext(themeContext);
 
         const coverArtIndex = manga.relationships.findIndex(
             (relationship: Relationship) => relationship.type === 'cover_art'
@@ -36,7 +38,7 @@
                             <button className="slide-read">read</button>
                         </div>
                         <div className="slide__text">
-                            <div className="text__title">
+                            <div className={`text__title text-${color}`}>
                                 <h3>{manga.attributes.title?.en || ''}</h3>
                             </div>
                             <div className="text__description">

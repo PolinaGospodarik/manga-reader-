@@ -1,5 +1,3 @@
-// MangaSlider.tsx
-
 import React, { useEffect } from 'react';
 import './MangaSlider.css';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -11,17 +9,15 @@ import 'swiper/css/scrollbar';
 import { Pagination } from 'swiper/modules';
 import { fetchMangaSelfPublished } from '../../redux/slice/list';
 import MangaSlide from '../MangaSlide/MangaSlide';
-import {Manga, MangaDetails} from '../../types/types';
+import {MangaDetails} from '../../types/types';
 
 interface MangaSliderProps {
-    listId: string; // Уникальный id для списка
-    slidesPerView?: number; // Количество слайдов на экране
+    listId: string;
+    slidesPerView?: number;
 }
 
 const MangaSlider: React.FC<MangaSliderProps> = ({ listId, slidesPerView= 5}) => {
-    // const isSmall = slidesPerView === 7;
     const dispatch = useAppDispatch();
-    // Извлекаем данные из состояния Redux
     const mangaData = useAppSelector(
         (state) => state.list.mangaSelfPublished[listId]?.mangaData // Используем только mangaData
     );

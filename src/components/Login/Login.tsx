@@ -29,8 +29,9 @@ const Login = () => {
             <h2>Sign in to your account</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form__login">
-                    <label>Username or email</label>
+                    <label className="form__title">Username or email</label>
                     <input
+                        className="form__text"
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -38,17 +39,18 @@ const Login = () => {
                     />
                 </div>
                 <div className="form__password">
-                    <label>Password</label>
+                    <label className="form__title">Password</label>
                     <input
+                        className="form__text"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
-                <button type="submit" disabled={loading}>Sign in</button>
+                <button className="form__button" type="submit" disabled={loading}>Sign in</button>
             </form>
-            {/*{error && <p style={{ color: 'red' }}>{error}</p>}*/}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
 };

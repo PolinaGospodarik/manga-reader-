@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import "./MangaItem.css"
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {useParams} from "react-router-dom";
 import {fetchMangaId} from "../../redux/slice/manga";
 import {Relationship} from "../../types/types";
+import {themeContext} from "../../roviders/ThemeContext";
 
 const MangaItem = () => {
     const {id} = useParams();
+    const [color] = useContext(themeContext);
 
     const dispatch = useAppDispatch();
     const mangaItem = useAppSelector(state =>  state.manga.mangaItem);
@@ -47,18 +49,17 @@ const MangaItem = () => {
             `https://uploads.mangadex.org/covers/${id}/${fileName}`
         ] : [null, null];
 
-    // Извлекаем данные из mangaItem
-    const { data, rating, follows } = mangaItem;  // mangaItem содержит информацию о манге и стат
+    const { data, rating, follows } = mangaItem;
 
     return (
         <>
-            <div className="manga-id">
-                <div className="manga-id-backgroud" style={{backgroundImage: `url(${backgroundUrl})`}}>
-                    <div className="manga-id-overlay">
-
+            <div className={`manga-id background-${color}`}>
+                <div className={`manga-id-background`} style={{backgroundImage: `url(${backgroundUrl})` }}>
+                    <div className="manga-id-overlay"></div>
+                </div>
+                <div >
                 <div className="container">
                     <div className="manga-id-wrapper">
-
                         <div className="manga-id__img">
                             {coverUrl ? (
                                 <img src={coverUrl} alt={mangaItem?.data.attributes?.title?.en || 'Cover'}/>
@@ -69,32 +70,30 @@ const MangaItem = () => {
                         <div className="manga-id__content">
 
                             <div className="manga-id__content-top">
-                                <div className="manga-id__title">
+                                <div className={`manga-id__title text-${color}`}>
                                     <h1>{mangaItem?.data.attributes?.title?.en}</h1>
                                 </div>
-                                {/*<p>{mangaItem?.data.attributes?.description.en}</p>*/}
                                 <div className="manga-id__creators">
-                                <span
-                                    className="manga-id__creators-author">{mangaItem?.data.relationships[authorIndex].attributes?.name}</span>
+                                    <span
+                                        className="manga-id__creators-author">{mangaItem?.data.relationships[authorIndex].attributes?.name}</span>
                                     <span
                                         className="manga-id__creators-artist">,{mangaItem?.data.relationships[artistIndex].attributes?.name}</span>
                                 </div>
                             </div>
-                            <button className="manga-id__button">Добавиь в избранное</button>
-                            <div className="manga-id__manga-stats">
-                                <h3>Рейтинг:{rating?.bayesian.toFixed(2)}</h3>
-                                <div>
-                                    <h3>Количество подписок:</h3>
-                                    <p>{follows}</p>
+                            <div className="manga-id__content-bottom">
+                                <button className="manga-id__button">Add To Library</button>
+                                <div className={`manga-id__manga-stats text-${color}`}>
+                                    <p>Rating: {rating?.bayesian.toFixed(2)}</p>
+                                    <p>Number of subscriptions: {follows}</p>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    <div className={`manga-id__description text-${color}`}>
+                        <p>{mangaItem?.data.attributes?.description.en}</p>
                     </div>
                 </div>
                 </div>
-                </div>
-
             </div>
         </>
     );

@@ -17,3 +17,53 @@ body {
     padding: 0 25px;
     margin: 0 auto;
 }
+
+
+.dropdown-light{
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.dropdown-dark{
+    background: #0e0f12;
+    box-shadow: 0 4px 8px rgba(229, 229, 229, 0.1);
+}
+
+
+.background-light{
+    background: #fff;
+}
+.background-light::after{
+    background: linear-gradient(0deg, rgb(255, 255, 255), rgba(255, 255, 255, 0.3));
+}
+
+.background-dark{
+    background: #0e0f12;
+}
+.background-dark:after{
+    background: linear-gradient(0deg, rgba(14,15,18,1) 0%, rgba(0,0,0,0.4207808123249299) 100%);
+}
+
+.grey-light{
+    background-color: rgba(211, 211, 211, 0.76);
+}
+
+.grey-dark{
+    background-color: rgb(56, 56, 58);
+}
+
+
+
+.text-light{
+    color: #1e1e1e;
+}
+.text-dark{
+    color: #e1e1e1;
+}
+
+.placeholder-light::placeholder{
+    color: #1e1e1e;
+}
+.placeholder-dark::placeholder{
+    color: #cccccc;
+}
+

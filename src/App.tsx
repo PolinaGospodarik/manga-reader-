@@ -9,6 +9,7 @@ import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import MangaItem from "./components/MangaItem/MangaItem";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import ThemeContext from "./roviders/ThemeContext";
 
 const AppContent = () => {
     const location = useLocation();
@@ -30,9 +31,11 @@ const AppContent = () => {
 function App() {
     return (
         <BrowserRouter>
-            <Provider store={store}>
-                <AppContent />
-            </Provider>
+            <ThemeContext>
+                <Provider store={store}>
+                    <AppContent />
+                </Provider>
+            </ThemeContext>
         </BrowserRouter>
     );
 }

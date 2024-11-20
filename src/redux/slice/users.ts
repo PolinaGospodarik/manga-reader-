@@ -29,7 +29,7 @@ export const login = createAsyncThunk<AuthResponse, { username: string; password
             return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                return rejectWithValue(error.response?.data.message || 'Неизвестная ошибка');
+                return rejectWithValue(error.response?.data.message || 'Неверный логин или пароль');
             }
             return rejectWithValue('Неизвестная ошибка');
         }
@@ -76,6 +76,7 @@ const usersSlice = createSlice({
         logout: (state) => {
             state.error = null;
             removeTokensFromLocalStorage();
+            state.user= false;
         },
     },
     extraReducers: (builder) => {

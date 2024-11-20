@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import "./MangaList.css"
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {fetchMangaId, fetchMangaLatest} from "../../redux/slice/manga";
 import {Manga, Relationship} from "../../types/types";
 import {useNavigate} from "react-router-dom";
+import {themeContext} from "../../roviders/ThemeContext";
 
 const MangaList = () => {
-    // const {id}= useParams();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [color] = useContext(themeContext);
 
     const mangaLatest = useAppSelector((state) => state.manga.mangaLatest);
 
@@ -43,7 +44,7 @@ const MangaList = () => {
                                 const coverUrl = fileName ? `https://uploads.mangadex.org/covers/${manga.id}/${fileName}.256.jpg` : null;
 
                                 return (
-                                    <div className="manga-latest__item" key={manga.id} onClick={() => handleClick(manga)}>
+                                    <div className={`manga-latest__item grey-${color}`} key={manga.id} onClick={() => handleClick(manga)}>
                                         <div className="item-left">
                                             <a className="item-left__img">
                                                 {coverUrl ? (
@@ -54,12 +55,12 @@ const MangaList = () => {
                                             </a>
                                         </div>
                                         <div className="item-right">
-                                            <div className="item__title">
+                                            <div className={`item__title text-${color}`}>
                                                 <h3>{manga.attributes.title?.en || 'Название недоступно'}</h3>
                                             </div>
 
-                                            <span>{manga.relationships[authorIndex]?.attributes?.name}</span>
-                                            <span>{manga.relationships[artistIndex]?.attributes?.name}</span>
+                                            <span className={`item__title text-${color}`}>{manga.relationships[authorIndex]?.attributes?.name}</span>
+                                            <span className={`item__title text-${color}`}>{manga.relationships[artistIndex]?.attributes?.name}</span>
                                         </div>
                                     </div>
                                 );

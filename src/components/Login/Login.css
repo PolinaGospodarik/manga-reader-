@@ -1,9 +1,54 @@
-.form__login{
-    display: flex;
-    flex-direction: column;
-    width: 500px;
+.form h2 {
+    font-size: 24px;
+    color: #f1f1f1;
+    margin-bottom: 20px;
 }
-.form__password{
-    display: flex;
-    flex-direction: column;
+
+
+.form__login, .form__password {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px
+}
+
+
+.form__title{
+    font-size: 16px;
+    color: #e8e8e8;
+    margin-bottom: 5px;
+    display: block;
+}
+
+
+.form__text {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+}
+
+
+.form__button {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    background-color: rgb(255,103,64);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.form__button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
 }

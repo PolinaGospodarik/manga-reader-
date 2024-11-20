@@ -3,17 +3,25 @@ import "./LoginPage.css"
 import Login from "../../components/Login/Login"
 import logoImg from "../../img/mangadex-logo.svg"
 import logoText from "../../img/mangadex-wordmark-white.svg"
+import {useNavigate} from "react-router-dom";
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/');
+    };
     return (
         <>
             <div className="login">
                 <div className="container">
-                    <a href="#" className="logo">
-                        <img src={logoImg} alt="img-logo"/>
-                        <img src={logoText} alt="text-logo"/>
-                    </a>
-                    <Login></Login>
+                    <div className="login-wrapper">
+                        <a href="#" className="logo" onClick={handleClick}>
+                            <img src={logoImg} alt="img-logo"/>
+                            <img src={logoText} alt="text-logo"/>
+                        </a>
+                        <Login></Login>
+                    </div>
                 </div>
             </div>
         </>

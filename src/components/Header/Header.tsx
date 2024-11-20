@@ -1,43 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import "./Header.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDroplet } from '@fortawesome/free-solid-svg-icons';
 import logoImg from "../../img/mangadex-logo.svg";
-import logoText from "../../img/mangadex-wordmark-black.svg";
+import logoTextBlack from "../../img/mangadex-wordmark-black.svg";
+import logoTextWhite from "../../img/mangadex-wordmark-white.svg";
+import avatarDefault from "../../img/avatar.png"
 import { useNavigate } from "react-router-dom";
 import SearchInput from "../SearchInput/SearchInput";
+import DropDown from "../DropDown/DropDown";
+import {useAppSelector} from "../../hooks";
+import {themeContext} from "../../roviders/ThemeContext";
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [avatar, setAvatar] = useState(avatarDefault);
     const navigate = useNavigate();
+    const [color] = useContext(themeContext);
+
+    const user = useAppSelector((state) => state.users.user);
 
     useEffect(() => {
         window.addEventListener('scroll', () => setIsScrolled(window.scrollY > 50));
     }, []);
+
+    useEffect(() => {
+        setAvatar( user ? "https://mangadex.org/img/avatar.png" : avatarDefault)
+    }, [user])
 
     const handleClickLogo = () => {
         navigate("/");
     };
 
     return (
-        <div className={`header ${isScrolled ? 'scrolled' : ''}`}>
+        <div className={`header ${isScrolled ? `scrolled background-${color}` : ''}`}>
             <div className="container">
                 <div className="header-wrapper">
-                    <div className="header-left" onClick={handleClickLogo}>
-                        <img src={logoImg} alt="logo-img" />
-                        <img src={logoText} alt="" className="logo-wordmark" />
-                    </div>
+                    <a href="#" onClick={handleClickLogo}>
+                        <img src={logoImg} alt="logo-img"/>
+                        <img
+                            src={color === "dark" ? logoTextWhite : logoTextBlack}
+                            alt="Logo"
+                            className="logo-wordmark"
+                        />
+                    </a>
                     <div className="header-right">
-                        <SearchInput showDropdown={true} inputSize="small"/>
-                        <button className="header-right__button-theme">
-                            <FontAwesomeIcon className="button-theme__icon" icon={faDroplet} />
-                        </button>
-                        <div className="header-right__avatar">
-                            <img className="avatar" src="https://mangadex.org/img/avatar.png" alt="avatar" />
+                        <SearchInput/>
+                        <div className={`header-right__avatar grey-${color}`}
+                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                            <img className="avatar" src={avatar} alt="avatar"/>
                         </div>
                     </div>
                 </div>
             </div>
+            {isDropdownOpen && <DropDown/>}
         </div>
     );
 };

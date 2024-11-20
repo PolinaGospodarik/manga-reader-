@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import "./SearchInput.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { clearSearch, fetchMangaByTitle, setSearchValue } from "../../redux/slice/search";
+import {
+    clearSearch,
+    fetchMangaByTitle,
+    setPageSearchValue,
+    setSearchValue
+} from "../../redux/slice/search";
 import { Manga, Relationship } from "../../types/types";
 import { useNavigate } from "react-router-dom";
-import { fetchMangaId } from "../../redux/slice/manga";
+import {fetchMangaId} from "../../redux/slice/manga";
+import {themeContext} from "../../roviders/ThemeContext";
 
-interface SearchInputProps {
-    showDropdown?: boolean;
-    inputSize?: 'small' | 'large';
-}
-
-const SearchInput: React.FC<SearchInputProps> = ({ showDropdown = true, inputSize = 'small' }) => {
+const SearchInput = () => {
     const [isListVisible, setIsListVisible] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    const [color] = useContext(themeContext);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const searchValue = useAppSelector((state: any) => state.search.searchValue);
+    let searchValue = useAppSelector((state: any) => state.search.searchValue);
+    let pageSearchValue = useAppSelector((state: any) => state.search.pageSearchValue);
     const searchResults = useAppSelector(state => state.search.searchResults);
 
+
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSearchValue(event.target.value));
-        if (event.target.value.trim()) {
+        const searchValue = event.target.value;
+        dispatch(setSearchValue(searchValue));
+        if (searchValue.trim()) {
+            dispatch(fetchMangaByTitle({ title: searchValue, offset: 0 }));
             setIsListVisible(true);
-            dispatch(fetchMangaByTitle(event.target.value));
         } else {
-            setIsListVisible(false);
             dispatch(clearSearch());
+            setIsListVisible(false);
         }
     };
 
@@ -40,7 +45,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ showDropdown = true, inputSiz
 
     const handleBlur = () => {
         setIsFocused(false);
-        dispatch(clearSearch());
+        dispatch(setSearchValue(""));
     };
 
     const handleClick = (manga: Manga) => {
@@ -52,6 +57,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ showDropdown = true, inputSiz
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             navigate(`/search?q=${searchValue}`);
+            dispatch(setPageSearchValue(searchValue))
+            dispatch(setSearchValue(''));
             setIsListVisible(false);
         }
     };
@@ -61,23 +68,20 @@ const SearchInput: React.FC<SearchInputProps> = ({ showDropdown = true, inputSiz
         setIsListVisible(false);
     };
 
-    // Условное использование классов для размеров поля поиска
-    const inputClass = `search ${inputSize === 'large' ? 'search--large' : 'search--small'} ${inputSize === 'small' && isFocused ? 'search--focused' : ''}`;
-
     return (
         <div className="header-right__search">
             <input
                 type="search"
                 placeholder="Search"
-                className={inputClass}
+                className={`search-input ${isFocused ? 'search--focused' : ''} grey-${color} text-${color} placeholder-${color}`}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={searchValue}
                 onChange={handleSearchChange}
-                onKeyDown={inputSize === 'small' ? handleKeyDown : undefined}
+                onKeyDown={handleKeyDown}
             />
-            {showDropdown && isListVisible && searchResults?.length > 0 && isFocused && (
-                <ul className="search-field">
+            {isListVisible && searchResults?.length > 0 && isFocused && (
+                <ul className={`search-field background-${color}`}>
                     {searchResults.map((manga) => {
                         const coverArtIndex = manga.relationships.findIndex(
                             (relationship: Relationship) => relationship.type === 'cover_art'
@@ -88,9 +92,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ showDropdown = true, inputSiz
 
                         return (
                             <li className="search-field__item" key={manga.id} onMouseDown={() => handleClick(manga)}>
-                                <div className="search-field__item-wrapper">
+                                <div className={`search-field__item-wrapper grey-${color}`}>
                                     <div className="search-field__item-img">{coverUrl && <img src={coverUrl} alt="Cover" />}</div>
-                                    <div className="search-field__item-title"><h4>{manga.attributes.title?.en}</h4></div>
+                                    <div className={`search-field__item-title text-${color}`}><h4>{manga.attributes.title?.en}</h4></div>
                                 </div>
                             </li>
                         );
@@ -100,14 +104,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ showDropdown = true, inputSiz
             {searchValue && (
                 <button
                     type="button"
-                    className="search-button"
+                    className={`search-button text-${color}`}
                     onClick={handleClearSearch}
                 >
                     <FontAwesomeIcon icon={faTimes} />
                 </button>
             )}
             {!searchValue && (
-                <button type="button" className="search-button">
+                <button type="button" className={`search-button  text-${color}`}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
             )}

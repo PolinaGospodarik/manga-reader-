@@ -21,7 +21,6 @@
 }
 
 .manga-latest__item{
-    background-color: #efefef;
     padding: 15px 15px 0;
     display: flex;
 }
@@ -38,7 +37,6 @@
     overflow: hidden;
     margin-right: 10px;
     margin-bottom: 15px;
-    box-shadow: 0 10px 10px #c7c7c7;
 }
 
 .item-left__img img{

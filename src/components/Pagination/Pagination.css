@@ -1,0 +1,20 @@
+.pagination{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.pagination__button{
+    color: white;
+    background-color:rgb(255,103,64);
+    border-radius:5px;
+    padding: 10px;
+}
+
+.disabled{
+    color: white;
+    background-color: #7c7c7c;
+    border-radius:5px;
+    padding: 10px;
+}

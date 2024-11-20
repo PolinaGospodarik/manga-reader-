@@ -1,27 +1,40 @@
-.search-page{
+.search-page {
+    min-height: 100vh;
+    height: 100%;
     padding-top: 70px;
 }
 
-.search-page__item{
+.search-page-info{
+    margin: 20px 0;
+}
+
+.search-page__item {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
-.search-page__img{
-    display: block;
+.search-page__img {
     width: 100px;
-    height:350px;
+    height: 150px;
     overflow: hidden;
+    margin-right: 15px;
 }
 
-.search-page__img{
+.search-page__img img {
     width: 100%;
-    height:100%;
+    height: 100%;
     object-fit: cover;
 }
 
-.search-page__title{
+.search-page__title {
     display: flex;
+    flex-direction: column;
     flex: 1;
+}
+
+.search-page__title h3{
+    font-size: 24px;
+    font-weight: 500;
 }

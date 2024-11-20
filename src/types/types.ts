@@ -123,13 +123,33 @@ export type MangaRating = {
 export type SearchState = {
     searchResults: Manga[];
     searchValue: string;
+    pageSearchValue: string,
+    currentOffset: number;
     loading: boolean;
     error: string | null;
+    totalPages: number,
+    totalResults: number,
+    limit: number,
 };
 
 
 export type MangaSearch ={
     data: Manga[];
     result: string;
-
+    limit: number;
+    offset: number;
+    total: number;
 }
+
+export type PaginationSearch ={
+    limit: number;
+    currentOffset: number;
+    onPrev: () => void;
+    onNext: () => void;
+}
+
+//Context
+export type TContext =[
+    string,
+    (value: string) => void
+]
