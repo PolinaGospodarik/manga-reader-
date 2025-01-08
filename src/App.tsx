@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import MangaItem from "./components/MangaItem/MangaItem";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import ThemeContext from "./roviders/ThemeContext";
+import TestPage from "./pages/SearchPage/TestPage";
 
 const AppContent = () => {
     const location = useLocation();
@@ -23,6 +24,8 @@ const AppContent = () => {
                 <Route path="/login" element={<LoginPage/>} />
                 <Route path="/manga/:id" element={<MangaItem/>} />
                 <Route path="/search" element={<SearchPage/>} />
+                <Route path="/test" element={<TestPage/>} />
+
             </Routes>
         </>
     );

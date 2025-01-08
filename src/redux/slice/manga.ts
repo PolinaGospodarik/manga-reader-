@@ -7,7 +7,7 @@ export const fetchMangaPopular = createAsyncThunk<Manga[], void, { rejectValue: 
     "manga/fetchMangaPopular",
     async (_, { rejectWithValue }) =>{
         try{
-            const response = await axios.get("https://api.mangadex.org/manga", {
+            const response = await axios.get("/api/manga", {
                 params: {
                     limit: 10,
                     order: {
