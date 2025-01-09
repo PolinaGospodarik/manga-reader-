@@ -26,7 +26,7 @@ const TagList: React.FC<TagListProps> = ({ tags }) => {
                     style={getTagColor(tag.attributes.group)}
                 >
                     {tag.attributes.name.en.toUpperCase()}
-                    {index < tags.length - 1 && ','}
+                    {index < tags.length - 1 && ''}
                 </span>
             ))}
         </span>
